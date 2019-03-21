@@ -12,7 +12,13 @@
 */
 char *string_dup(char *src)
 {
+    int l = strlen(src) + 1;
+    char *copy = malloc(l);
 
+    for (int i=0; i < l; i++) {
+        copy[i] = src[i];
+    }
+    return copy;
 }
 
 /*
@@ -24,7 +30,12 @@ char *string_dup(char *src)
 */
 void mem_copy(void *dest, const void *src, int n)
 {
+    char *nd = (char *) dest;
+    char *ns = (char *) src;
 
+    for (int i=0; i < n; i++) {
+        nd[i] = ns[i];
+    }
 }
 
 /*
@@ -40,7 +51,15 @@ void mem_copy(void *dest, const void *src, int n)
 */
 void *resize_memory(void *ptr, int old_size, int new_size)
 {
+    char *np = malloc(new_size);
 
+    char *cp = (char *) ptr;
+ 
+    for (int i=0; i < old_size; i++) {
+        np[i] = cp[i];
+    }
+
+    return np;
 }
 
 #ifndef TESTING
@@ -50,6 +69,7 @@ int main(void)
     char *dup = string_dup(s);
 
     printf("Duplicated string: %s\n", dup);
+    printf("Duplicated string: %s\n", s);
 
     int numbers[] = {100, 55, 4, 98, 10, 18, 90, 95, 43, 11, 47, 67, 89, 42, 49, 79};
     int n = sizeof(numbers) / sizeof(numbers[0]);
